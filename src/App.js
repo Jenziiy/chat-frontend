@@ -1,5 +1,6 @@
 function App() {
   return (
+    <div className = "Container">
       <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
     <a href="/" className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
       <span className="fs-5 fw-semibold">List group</span>
@@ -20,6 +21,7 @@ function App() {
         <div className="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
       </a>
     </div>
+  </div>
   </div>
   );
 }
