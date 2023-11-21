@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Pusher from "pusher-js/types/src/core/pusher";
 
 function App() {
   const [username, setUsername] = useState('username');
@@ -6,11 +7,20 @@ function App() {
   const [message, setMessage] = useState('');
 
   useEffect(()=>{
+    Pusher.logToConsole = true;
 
+    var pusher = new Pusher('7859273f462c60e52c0e', {
+      cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
   }, []);
 
-  const submit = () => {
-    
+  const submit = e => {
+    e.preventDefault();
   }
   return (
     <div className = "Container">
@@ -31,7 +41,7 @@ function App() {
       })}
     </div>
   </div>
-  <form onSubmit={submit}>
+  <form onSubmit={e => submit(e)}>
     <input className="form-control" placeholder="Write a msg" value={message}
     onChange={e => setMessage(e.target.value)}/>
   </form>
