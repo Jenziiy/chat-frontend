@@ -5,22 +5,26 @@ function App() {
   const [username, setUsername] = useState('username');
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  let allMessages = [];
 
   useEffect(()=>{
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('7859273f462c60e52c0e', {
+    const pusher = new Pusher('7859273f462c60e52c0e', {
       cluster: 'eu'
     });
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      alert(JSON.stringify(data));
+    const channel = pusher.subscribe('chat-app');
+    channel.bind('message', function(data) {
+      allMessages.push(data);
+      setMessages(allMessages);
     });
   }, []);
 
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
+
+    await fetch('http://localhost:8000');
   }
   return (
     <div className = "Container">
