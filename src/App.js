@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Pusher from "pusher-js/types/src/core/pusher";
+import Pusher from "pusher-js";
 
 function App() {
   const [username, setUsername] = useState('username');
@@ -24,7 +24,17 @@ function App() {
   const submit = async e => {
     e.preventDefault();
 
-    await fetch('http://localhost:8000');
+    await fetch('http://localhost:8000/api/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        message
+      })
+    });
+    setMessage('');
   }
   return (
     <div className = "Container">
